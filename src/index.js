@@ -26,7 +26,7 @@ function onSerch() {
   list.innerHTML= ''
   fetchCountries(search.value).then(data => {
     console.log(data);
-    if (data.length === 1) {
+    if (data.length <= 1) {
       div.insertAdjacentHTML("beforeend", createMarkupDiv(data))     
     } else if(data.length > 1 && data.length < 10) {
       list.insertAdjacentHTML("beforeend", createMarkupList(data))
@@ -34,7 +34,10 @@ function onSerch() {
       Notiflix.Notify.info("Too many matches found. Please enter a more specific name.")
     }
   
-  }).catch(err => Notiflix.Notify.failure("Oops, there is no country with that name"))
+  }).catch(err => {
+    Notiflix.Notify.failure("Oops, there is no country with that name")
+    console.log(err);
+  })
 }
 
 
