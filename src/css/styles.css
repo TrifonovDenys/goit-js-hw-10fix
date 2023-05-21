@@ -18,3 +18,23 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+ul {
+  list-style: none;
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.list-img {
+  height: 40px;
+  width: 4%;
+  margin-right: 5px;
+}
+
+.single-img {
+  height: 100px;
+}
