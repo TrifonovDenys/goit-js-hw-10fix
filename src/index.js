@@ -45,7 +45,7 @@ function createMarkupDiv(arr) {
 
   return arr.map(({ flags: { svg, alt }, name: { common }, capital, population, languages }) => {
     const arr = []
-    for (key in languages) {
+    for (let key in languages) {
       arr.push(languages[key])
     }
     const line = arr.join(', ')
