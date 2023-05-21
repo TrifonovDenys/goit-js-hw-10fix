@@ -61,5 +61,6 @@ function createMarkupList(arr) {
   return arr.map(({ flags: { svg, alt }, name: {common} }) => {
     return `<li class="list-item"><img class="list-img" src="${svg}" alt="${alt}"><p>${common}</p></li>`
   }).join(' ')
+  
 }
 
