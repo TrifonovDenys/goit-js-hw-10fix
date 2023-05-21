@@ -1,19 +1,8 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
+import fetchCountries from './fetchCountries.js';
 var debounce = require('lodash.debounce');
 const DEBOUNCE_DELAY = 300;
-
-function fetchCountries(name) {
-  const BASE_URL = 'https://restcountries.com/v3.1';
-
-  return fetch(`${BASE_URL}/name/${name}?fields=flags,name,capital,population,languages`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText)
-      }
-      return response.json()
-    })
-}
 
 const list = document.querySelector('.country-list')
 const div = document.querySelector('.country-info')
@@ -23,9 +12,10 @@ search.addEventListener('input', debounce(onSerch, DEBOUNCE_DELAY))
 
 function onSerch() {
   div.innerHTML = ''
-  list.innerHTML= ''
-  fetchCountries(search.value).then(data => {
-    console.log(data);
+  list.innerHTML = ''
+  let serchValue = search.value.trim()
+
+  fetchCountries(serchValue).then(data => {
     if (data.length <= 1) {
       div.insertAdjacentHTML("beforeend", createMarkupDiv(data))     
     } else if(data.length > 1 && data.length < 10) {
@@ -42,7 +32,6 @@ function onSerch() {
 
 
 function createMarkupDiv(arr) {
-
   return arr.map(({ flags: { svg, alt }, name: { common }, capital, population, languages }) => {
     const arr = []
     for (let key in languages) {
@@ -63,7 +52,6 @@ function createMarkupDiv(arr) {
 function createMarkupList(arr) {
   return arr.map(({ flags: { svg, alt }, name: {common} }) => {
     return `<li class="list-item"><img class="list-img" src="${svg}" alt="${alt}"><p>${common}</p></li>`
-  }).join(' ')
-  
+  }).join(' ') 
 }
 
